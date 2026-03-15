@@ -8,9 +8,9 @@ Uma aplicação robusta de ETL (Extract, Transform, Load) desenvolvida em **Nest
 
 ## 👥 Alunos e Autores
 
-- **Felipe Tiroleza Biancalana** - RA: 20130555
-- **Beatriz Meloni Meneghetti** - RA: 18079053
-- **Rafael Elias Correa** - RA: 18726497
+- **Felipe Tiroleza Biancalana**
+- **Beatriz Meloni Meneghetti**
+- **Rafael Elias Correa**
 
 ---
 
