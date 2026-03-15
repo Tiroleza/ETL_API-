@@ -1,68 +1,78 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# ETL Processor API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+[![NestJS](https://img.shields.io/badge/nestjs-%23E0234E.svg?style=flat&logo=nestjs&logoColor=white)](https://nestjs.com/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=flat&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
+[![CircleCI](https://circleci.com/gh/nestjs/nest.svg?style=shield)](https://circleci.com/gh/nestjs/nest)
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Uma aplicação robusta de ETL (Extract, Transform, Load) desenvolvida em **NestJS** e conectada a múltiplos clusters **MongoDB**, demonstrando o uso de microsserviços e cronjobs para transporte e criptografia segura de dados entre instâncias.
 
-## Alunos
+## 👥 Alunos e Autores
 
-Beatriz Meloni Meneghetti RA: 18079053
+- **Felipe Tiroleza Biancalana** - RA: 20130555
+- **Beatriz Meloni Meneghetti** - RA: 18079053
+- **Rafael Elias Correa** - RA: 18726497
 
-Felipe Tiroleza Biancalana RA: 20130555
+---
 
-Rafael Elias Correa RA: 18726497
+## 🚀 Arquitetura e Objetivo (Description)
 
-## Description
+O intuito desta aplicação é demonstrar, na prática, um processo padronizado de **ETL (Extract, Transform, Load)** dividindo as responsabilidades de negócio e segurança. 
 
-O intuito desta aplicação seria mostrar na prática um processo ETL (Extract Transform Load), onde
-fazemos a extração de uma variável "dado" de um cluster(1), criptografamos em cifra de César,
-e enviamos para o cluster(2) a mensagem criptografada
+O fluxo executado compreende:
+1. **Extração (Extract):** Variáveis ("dados") são persistidas em um **Cluster (1)** primário de origem. Múltiplos dados podem ser injetados aqui. 
+2. **Transformação (Transform):** Um rotina agendada (Cron Job) analisa iterativamente novos dados presentes no Cluster 1, realizando criptografia baseada em Cifra de César com uma chave/shift específica.
+3. **Carga (Load):** Os dados processados e seguros são então transportados e armazenados permanentemente em um **Cluster (2)** secundário de arquivamento ou distribuição. 
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+### Funcionalidades de Destaque
+- Suporte nativo a múltiplos bancos de dados simultâneos utilizando o `MongooseModule` do NestJS.
+- Rotinas agendadas `@Cron` com locks de segurança à prova de falhas processuais concorrentes (previne o "loop de dados duplos").
+- API exposta via Controllers para fácil injeção e manipulação de informações.
+- Tratamento de exceções utilizando `ValidationPipes` global do framework Nest.
 
-## Installation
+---
+
+## 🛠 Instalação 
+
+Clone o repositório, garanta que possui o Node.js e instale as dependências:
 
 ```bash
+# Clone o rep
+$ git clone https://github.com/Tiroleza/ETL_API-.git
+
+# Navegue e instale as dependências
+$ cd ETL_API-
 $ npm install
 ```
 
-## Running the app
+### Configuração de Ambiente (.env)
+
+Crie no root do projeto o arquivo `.env` seguindo a estrutura do `.env.example`:
+
+```env
+MONGODB_URI_CLUSTER1=mongodb+srv://<usuario>:<senha>@seucluster1.net/
+MONGODB_URI_CLUSTER2=mongodb+srv://<usuario>:<senha>@seucluster2.net/
+# PORT=3000 (Opcional, Default é 3000)
+```
+
+---
+
+## 💻 Executando a Aplicação
 
 ```bash
-# development
+# Modo desenvolvimento local
 $ npm run start
 
-# watch mode
+# Modo desenvolvimento de "watch" (Recarrega automaticamente nas alterações)
 $ npm run start:dev
 
-# production mode
+# Compilação e Build para modo de produção (Performance máxima)
 $ npm run start:prod
 ```
 
-(caso execute muitas vezes, passível de erro por duplicação no banco de dados)
+Uma vez rodando, o agendador ETL começará de forma automática com base no seu intervalo nativo (1 hora), além de a API estar apta a receber seus cURLS via GET/POST para `http://localhost:3000/dados`.
 
-## Support
+---
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## 🛡 Licença
 
-## License
-
-Nest is [MIT licensed](LICENSE).
+Este projeto e o framework que o abraça são desenvolvidos perante as regras *open-source* usando a [MIT licensed](LICENSE) do próprio Nest.

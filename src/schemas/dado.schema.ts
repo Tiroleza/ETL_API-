@@ -8,6 +8,9 @@ export class Dado {
   @Prop({ required: true, unique: true })
   valorOriginal: string; // Campo para armazenar o dado original
 
+  @Prop({ type: Boolean, default: false })
+  transformado: boolean; // Flag para rastrear processo de ETL
+
   @Prop({ type: Date, default: Date.now })
   createdAt: Date;
 }

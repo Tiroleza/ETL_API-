@@ -1,10 +1,10 @@
 import { NestFactory } from "@nestjs/core";
 import { EtlModule } from "./etl.module";
 import * as bodyParser from "body-parser";
-import { ValidationPipe } from "@nestjs/common";
-import { EtlService } from "./app.service";
+import { ValidationPipe, Logger } from "@nestjs/common";
 
 async function bootstrap() {
+  const logger = new Logger("Bootstrap");
   const app = await NestFactory.create(EtlModule);
 
   app.use(bodyParser.json());
@@ -16,11 +16,9 @@ async function bootstrap() {
       transform: true,
     })
   );
-  await app.listen(3000);
-  console.log("Aplicação está rodando na porta 3000.");
 
-  const etlService = app.get(EtlService);
-  await etlService.realizarEtl();
-  setInterval(() => etlService.realizarEtl(), 5000); // 3600000 ms = 1 hora
+  const port = process.env.PORT || 3000;
+  await app.listen(port);
+  logger.log(`Aplicação está rodando na porta ${port}.`);
 }
 bootstrap();
