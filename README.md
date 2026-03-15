@@ -6,7 +6,7 @@
 
 Uma aplicação robusta de ETL (Extract, Transform, Load) desenvolvida em **NestJS** e conectada a múltiplos clusters **MongoDB**, demonstrando o uso de microsserviços e cronjobs para transporte e criptografia segura de dados entre instâncias.
 
-## 👥 Alunos e Autores
+## 👥 Autores
 
 - **Felipe Tiroleza Biancalana**
 - **Beatriz Meloni Meneghetti**
